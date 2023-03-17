@@ -66,8 +66,3 @@ function App() {
 }
 
 export default App;
-
-/*
-- turn down opacity of the searchbar image and search results image
-- margin at the top of page
-*/
