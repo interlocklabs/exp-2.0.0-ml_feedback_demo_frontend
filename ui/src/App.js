@@ -10,7 +10,7 @@ function App() {
   
   const results_url="http://127.0.0.1:5000/get_feedback" // just for demo
   const searchbar_img_url = "https://i.imgur.com/1L8rzON.png"; // reference: https://dribbble.com/shots/19813155-Shop-App-Best-Practices-for-Search-Results
-  const search_results_img_url = "https://i.imgur.com/LyzBbts.png"; // reference: https://dribbble.com/shots/3206792-Search-Results-Wireframe-Interaction-Prototype
+  const search_results_img_url = "https://i.imgur.com/De5Q3ws.png"; // reference: https://dribbble.com/shots/19813155-Shop-App-Best-Practices-for-Search-Results
 
   useEffect (() => {
     axios.get(results_url)
@@ -25,33 +25,40 @@ function App() {
 
   return (
     <div>
+      <h1 class="title">Try the widget out below.</h1>
       <div class="demo-container">
         <img class="searchbar-image" src={searchbar_img_url} alt="sample searchbar"></img>
-        <MLFeedbackWidget url={widget_url}/>
-        <img src={search_results_img_url} alt="sample search result"></img>
+        <MLFeedbackWidget feedbackEndpointUrl={widget_url}/>
+        <img class="search-results-image" src={search_results_img_url} alt="sample search result"></img>
       </div>
-      <div class="container">
-        <h1 class="title">Results:</h1>
-        <h2 class="subtitle">Refresh to see your inputs in the table.</h2>
-        <table class="table">
-          <thead>
-            <tr>
-              <th><abbr title="Uid">Uid</abbr></th>
-              <th><abbr title="Liked?">Liked?</abbr></th>
-              <th><abbr title="Feedback">Feedback</abbr></th>
-            </tr>
-          </thead>
-          <tbody>
-            {console.log(results[0])}
-            {results.map((result) => (
-              <tr>
-                <th>{result.uid}</th>
-                <td>{result.is_liked.toString()}</td>
-                <td>{result.feedback_text === "" ? "N/a" : result.feedback_text}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div class="results-container">
+        <div>
+          <h1 class="title">Results:</h1>
+            <h2 class="subtitle">Refresh to see your inputs in the table.</h2>
+            {
+              results.length === 0 ? 
+              <p>Loading...</p> : 
+              <table class="table">
+                <thead>
+                  <tr class="row">
+                    <th>Uid</th>
+                    <th>Liked?</th>
+                    <th>Feedback</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {console.log(results[0])}
+                  {results.map((result) => (
+                    <tr class="row">
+                      <td>{result.uid}</td>
+                      <td>{result.is_liked.toString()}</td>
+                      <td>{result.feedback_text === "" ? "N/a" : result.feedback_text}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            }
+        </div>
       </div>
     </div>
     
@@ -59,3 +66,8 @@ function App() {
 }
 
 export default App;
+
+/*
+- turn down opacity of the searchbar image and search results image
+- margin at the top of page
+*/
