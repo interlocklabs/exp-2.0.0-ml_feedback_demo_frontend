@@ -1,9 +1,11 @@
+from collections import deque
 from flask import Flask, jsonify, request
-import ast
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
-feedback = [{'uid': 0, 'is_liked': False, 'feedback_text': 'None of these are relevant...'}]
+feedback = deque([{'uid': 0, 'is_liked': False, 'feedback_text': 'None of these are relevant...'}])
 
 @app.route('/')
 def home():
@@ -11,16 +13,17 @@ def home():
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    print(request.json)
-    new_feedback = {
+
+
+    new_feedback_entry = {
         'uid': len(feedback), 
         'is_liked': request.json['isLiked'], 
         'feedback_text': request.json['feedback'] 
     }
 
-    feedback.append(new_feedback)
-    return jsonify({'feedback': feedback})
+    feedback.appendleft(new_feedback_entry)
+    return jsonify({'feedback': list(feedback)})
 
 @app.route('/get_feedback', methods=['GET'])
 def get_feedback():
-    return jsonify({'feedback': feedback})
+    return jsonify({'feedback': list(feedback)})
