@@ -1,6 +1,6 @@
 from collections import deque
 from flask import Flask, jsonify, request
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 CORS(app)
@@ -12,6 +12,7 @@ def home():
     return 'Hello World!'
 
 @app.route('/webhook', methods=['POST'])
+@cross_origin()
 def webhook():
 
 
@@ -25,5 +26,6 @@ def webhook():
     return jsonify({'feedback': list(feedback)})
 
 @app.route('/get_feedback', methods=['GET'])
+@cross_origin()
 def get_feedback():
     return jsonify({'feedback': list(feedback)})
