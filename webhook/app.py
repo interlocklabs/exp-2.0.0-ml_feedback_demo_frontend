@@ -1,15 +1,11 @@
 from collections import deque
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS, cross_origin
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../ui/build', static_url_path='')
 CORS(app)
 
 feedback = deque([{'uid': 0, 'is_liked': False, 'feedback_text': 'None of these are relevant...'}])
-
-@app.route('/')
-def home():
-    return 'Hello World!'
 
 @app.route('/webhook', methods=['POST'])
 @cross_origin()
@@ -29,3 +25,8 @@ def webhook():
 @cross_origin()
 def get_feedback():
     return jsonify({'feedback': list(feedback)})
+
+@app.route('/')
+@cross_origin()
+def serve():
+    return send_from_directory(app.static_folder, 'index.html')
