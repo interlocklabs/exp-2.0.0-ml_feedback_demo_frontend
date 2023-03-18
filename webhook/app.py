@@ -2,7 +2,7 @@ from collections import deque
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS, cross_origin
 
-app = Flask(__name__, static_folder='../ui/build', static_url_path='')
+app = Flask(__name__)
 CORS(app)
 
 feedback = deque([{'uid': 0, 'is_liked': False, 'feedback_text': 'None of these are relevant...'}])
