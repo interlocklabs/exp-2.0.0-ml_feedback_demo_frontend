@@ -6,10 +6,9 @@ import { useEffect, useState } from 'react';
 function App() {
   const [results, setResults] = useState([]);
 
-  // const widget_url="http://127.0.0.1:5000/webhook" // CHANGE THIS TO THE CUSTOM URL OF YOUR WEBHOOK
-  const widget_url="https://interlocklabs.pythonanywhere.com"
+  const widget_url=`${process.env.REACT_APP_API_URL}/webhook` // CHANGE THIS TO THE CUSTOM URL OF YOUR WEBHOOK
 
-  const results_url="http://127.0.0.1:5000/get_feedback" // just for demo
+  const results_url=`${process.env.REACT_APP_API_URL}/get_feedback` //just for demo
   const searchbar_img_url = "https://i.imgur.com/1L8rzON.png"; // reference: https://dribbble.com/shots/19813155-Shop-App-Best-Practices-for-Search-Results
   const search_results_img_url = "https://i.imgur.com/De5Q3ws.png"; // reference: https://dribbble.com/shots/19813155-Shop-App-Best-Practices-for-Search-Results
 
