@@ -3,6 +3,11 @@ import MLFeedbackWidget from 'ml-feedback-widget';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+import posthog from 'posthog-js'
+
+
+posthog.init(`${process.env.REACT_APP_POSTHOG_ID}`, { api_host: 'https://app.posthog.com' });
+
 function App() {
   const [results, setResults] = useState([]);
 
